@@ -1,6 +1,8 @@
-import 'package:expense_diary/screens/home_page.dart';
+import 'package:expense_diary/screens/home_screen.dart';
+import 'package:expense_diary/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
@@ -37,7 +39,26 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const HomePage(),
+      child: FutureBuilder(
+          future: SharedPreferences.getInstance(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const Text('Some error has Occurred');
+            } else if (snapshot.hasData) {
+              final token = snapshot.data!.getString('token');
+              if (token != null) {
+                return const HomeScreen();
+              } else {
+                return const HomeScreen();
+              }
+            } else {
+              return const HomeScreen();
+            }
+          }),
     );
   }
 }

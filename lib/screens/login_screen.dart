@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Expense Diary')),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(15.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 5.h),
+                Text(
+                  'Login',
+                  style: TextStyle(
+                      fontFamily: 'Primary',
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w800),
+                ),
+                SizedBox(height: 5.h),
+                Image.asset(
+                  'assets/images/login.jpg',
+                  width: 250.w,
+                  height: 200.h,
+                ),
+                SizedBox(height: 5.h),
+                TextField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    label: Text(
+                      'Full Name',
+                    ),
+                    hintText: 'Type your full name',
+                    hintStyle: TextStyle(color: Colors.amber),
+                    icon: Icon(Icons.people),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    label: Text(
+                      'Email',
+                    ),
+                    hintText: 'Email',
+                    hintStyle: TextStyle(color: Colors.amber),
+                    icon: Icon(Icons.email),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                TextField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    label: Text('Password'),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(color: Colors.amber),
+                    icon: Icon(Icons.key),
+                  ),
+                ),
+                SizedBox(height: 8.h),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Login',
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Don't have an account? Create",
+                    style: TextStyle(
+                        fontFamily: 'Primary',
+                        fontSize: 15.sp,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Forgot Password",
+                    style: TextStyle(
+                        fontFamily: 'Primary',
+                        fontSize: 15.sp,
+                        color: Colors.cyan,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
