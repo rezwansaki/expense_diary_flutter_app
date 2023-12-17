@@ -9,12 +9,17 @@ Database: Firebase.
 1. https://www.freepik.com/ </br>
 <a href="https://www.freepik.com/free-vector/two-factor-authentication-concept-illustration_12892978.htm#page=2&query=login&position=2&from_view=search&track=sph&uuid=cdd01aa2-1087-49dd-91ef-e96b3756537b">Image by storyset</a> on Freepik
 
+## Database and Firebase Config:
+Firebase project name - 'expense-diary-flutter-app' on 'alinsworld2010@gmail.com'.
+All config or options of Firebase - ‘lib\firebase_options.dart’. 
+
+
 ## Instruction:
 <ul>  
     <li>1. flutter clean</li>
     <li>2. flutter pub get</li>
     <li>3. flutter run</li>
-    <li>4. Internet required</li>
+Note: Internet required.
 </ul>
 
 ### Features:

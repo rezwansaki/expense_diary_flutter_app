@@ -1,3 +1,4 @@
+import 'package:expense_diary/constant/variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +18,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text('Expense Diary')),
+        appBar: AppBar(title: const Text(appName)),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(15.w),

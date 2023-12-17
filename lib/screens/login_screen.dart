@@ -1,3 +1,4 @@
+import 'package:expense_diary/constant/variables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,7 +10,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text('Expense Diary')),
+        appBar: AppBar(title: const Text(appName)),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(15.w),
@@ -39,18 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   'assets/images/login.jpg',
                   width: 250.w,
                   height: 200.h,
-                ),
-                SizedBox(height: 5.h),
-                TextField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(
-                    label: Text(
-                      'Full Name',
-                    ),
-                    hintText: 'Type your full name',
-                    hintStyle: TextStyle(color: Colors.amber),
-                    icon: Icon(Icons.people),
-                  ),
                 ),
                 SizedBox(height: 5.h),
                 TextField(

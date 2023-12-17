@@ -1,3 +1,4 @@
+import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Home'),
+            title: const Text(appName),
           ),
           drawer: const CustomDrawer(),
           body: Column(

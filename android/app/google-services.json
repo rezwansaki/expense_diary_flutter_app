@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1045812654350",
+    "project_id": "expense-diary-flutter-app",
+    "storage_bucket": "expense-diary-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045812654350:android:250e8fea254e562c0c275f",
+        "android_client_info": {
+          "package_name": "com.alinsworld.expense_diary_flutter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFECsUWnJrfyJGq4vjIL7rCN5_CO2x-X0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

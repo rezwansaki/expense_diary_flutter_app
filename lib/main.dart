@@ -1,16 +1,26 @@
+import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/screens/home_screen.dart';
-import 'package:expense_diary/screens/login_screen.dart';
+import 'package:expense_diary/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
+  // .env package
   // if (kReleaseMode) {
   //   await dotenv.load(fileName: ".env");
   // } else {
   //   await dotenv.load(fileName: ".env.dev");
   // }
+
+  // firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   //...runapp
   runApp(const MyApp());
@@ -30,7 +40,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Expense Diary',
+          title: appName,
           // You can use the library anywhere in the app even in theme
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -53,10 +63,10 @@ class MyApp extends StatelessWidget {
               if (token != null) {
                 return const HomeScreen();
               } else {
-                return const HomeScreen();
+                return const RegisterScreen();
               }
             } else {
-              return const HomeScreen();
+              return const RegisterScreen();
             }
           }),
     );

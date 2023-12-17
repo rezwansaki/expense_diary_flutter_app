@@ -1,3 +1,5 @@
+import 'package:expense_diary/constant/variables.dart';
+import 'package:expense_diary/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text('Expense Diary')),
+        appBar: AppBar(title: const Text(appName)),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(15.w),
@@ -102,7 +104,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 8.h),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    createUserWithEmailAndPassword(
+                        context,
+                        _emailController.text,
+                        _passwordController.text,
+                        _nameController.text,
+                        _addressController.text,
+                        _genderController.text);
+                  },
                   child: Text(
                     'Register',
                     style: TextStyle(fontSize: 12.sp),
