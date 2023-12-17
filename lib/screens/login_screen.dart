@@ -1,5 +1,7 @@
 import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/controllers/auth_controller.dart';
+import 'package:expense_diary/screens/forgot_password.dart';
+import 'package:expense_diary/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -76,7 +78,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ));
+                  },
                   child: Text(
                     "Don't have an account? Create",
                     style: TextStyle(
@@ -87,7 +95,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPassword(),
+                        ));
+                  },
                   child: Text(
                     "Forgot Password",
                     style: TextStyle(

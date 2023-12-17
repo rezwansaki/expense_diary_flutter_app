@@ -85,3 +85,19 @@ signOut(BuildContext context) async {
         builder: (context) => const LoginScreen(),
       ));
 }
+
+forgotPassword(BuildContext context, emailAddress) async {
+  await FirebaseAuth.instance
+      .sendPasswordResetEmail(email: emailAddress)
+      .then((value) => {print("Email sent")});
+
+  Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ));
+
+  try {} on FirebaseAuthException catch (e) {
+    print("Error $e");
+  }
+}

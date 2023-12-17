@@ -1,4 +1,6 @@
 import 'package:expense_diary/constant/variables.dart';
+import 'package:expense_diary/controllers/auth_controller.dart';
+import 'package:expense_diary/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +30,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               children: [
                 SizedBox(height: 5.h),
                 Text(
-                  'Login',
+                  'Forgot Password',
                   style: TextStyle(
                       fontFamily: 'Primary',
                       fontSize: 22.sp,
@@ -52,40 +54,43 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     icon: Icon(Icons.email),
                   ),
                 ),
-                SizedBox(height: 5.h),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    label: Text('Password'),
-                    hintText: 'Password',
-                    hintStyle: TextStyle(color: Colors.amber),
-                    icon: Icon(Icons.key),
-                  ),
-                ),
                 SizedBox(height: 8.h),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    forgotPassword(context, _emailController.text);
+                  },
                   child: Text(
-                    'Login',
+                    'Forgot Password',
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ));
+                  },
                   child: Text(
-                    "Don't have an account? Create",
+                    "Register",
                     style: TextStyle(
                         fontFamily: 'Primary',
                         fontSize: 15.sp,
-                        color: Colors.blue,
+                        color: Colors.cyan,
                         fontWeight: FontWeight.w800),
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ));
+                  },
                   child: Text(
-                    "Forgot Password",
+                    "Login",
                     style: TextStyle(
                         fontFamily: 'Primary',
                         fontSize: 15.sp,
