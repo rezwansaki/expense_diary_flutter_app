@@ -1,3 +1,4 @@
+import 'package:expense_diary/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatefulWidget {
@@ -10,8 +11,17 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
-    return const Drawer(
-      child: Text('Hello'),
-    );
+    return Drawer(
+        child: SingleChildScrollView(
+      child: Column(
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                signOut(context);
+              },
+              child: const Text('Sign Out'))
+        ],
+      ),
+    ));
   }
 }

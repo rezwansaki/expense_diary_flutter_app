@@ -1,5 +1,6 @@
 import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/controllers/auth_controller.dart';
+import 'package:expense_diary/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -119,7 +120,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ));
+                  },
                   child: Text(
                     "Already have an account? Login",
                     style: TextStyle(

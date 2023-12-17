@@ -59,8 +59,8 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasError) {
               return const Text('Some error has Occurred');
             } else if (snapshot.hasData) {
-              final token = snapshot.data!.getString('token');
-              if (token != null) {
+              final userId = snapshot.data!.getString('user_id');
+              if (userId != null) {
                 return const HomeScreen();
               } else {
                 return const RegisterScreen();

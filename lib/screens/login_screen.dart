@@ -1,4 +1,5 @@
 import 'package:expense_diary/constant/variables.dart';
+import 'package:expense_diary/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -65,7 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 8.h),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    signInWithEmailAndPassword(context, _emailController.text,
+                        _passwordController.text);
+                  },
                   child: Text(
                     'Login',
                     style: TextStyle(fontSize: 12.sp),
