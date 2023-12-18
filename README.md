@@ -55,7 +55,7 @@ Flutter 3.13.2 and Firebase.
 <hr>
 
 ### Apk Information:
-version: 1.0.0+1 (12-Dec-2023) <br />
+Apk version: 1.0.0+1 (12-Dec-2023) <br />
 <sub>This information has been taken from 'pubspec.yaml' file of flutter project.</sub>
 
 #### Apk size:
@@ -68,7 +68,7 @@ version: 1.0.0+1 (12-Dec-2023) <br />
 
 ### Last Update:
 
-18-Dec-2023
+19-Dec-2023
 
 ### Developed by:
 
