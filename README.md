@@ -54,16 +54,11 @@ Flutter 3.13.2 and Firebase.
 
 <hr>
 
-### Project Version:
+### Apk Information:
+version: 1.0.0+1 (12-Dec-2023) <br />
+<sub>This information has been taken from 'pubspec.yaml' file of flutter project.</sub>
 
-version: 1.0.0 (12-Dec-2023) <br />
-
-### Flutter App Version:
-only apk version: 1.0.0+1 (12-Dec-2023) <br />
-<sub>(When I will make change something only from 'frontend_mobile' folder. This information has been taken from 'pubspec.yaml' file of flutter project.)</sub>
-
-### App size:
-
+#### Apk size:
 00.00 MB (After build on APK for all platform) <br />
 00.00 MB (After build on APK for specific platform)
 
@@ -73,7 +68,7 @@ only apk version: 1.0.0+1 (12-Dec-2023) <br />
 
 ### Last Update:
 
-12-Dec-2023
+18-Dec-2023
 
 ### Developed by:
 
