@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/controllers/auth_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,8 +19,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final userId = preferences.getString('user_id');
     final db = FirebaseFirestore.instance;
-    final docRef =
-        db.collection("users").where("uid", isEqualTo: userId).get().then(
+    db.collection("users").where("uid", isEqualTo: userId).get().then(
       (querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           setState(() {
@@ -35,7 +33,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUserData();
   }

@@ -86,6 +86,7 @@ signOut(BuildContext context) async {
       ));
 }
 
+// forgot password or reset password
 forgotPassword(BuildContext context, emailAddress) async {
   await FirebaseAuth.instance
       .sendPasswordResetEmail(email: emailAddress)
