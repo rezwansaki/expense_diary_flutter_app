@@ -68,7 +68,7 @@ Apk version: 1.0.0+1 (12-Dec-2023) <br />
 
 ### Last Update:
 
-19-Dec-2023
+23-Dec-2023
 
 ### Developed by:
 

@@ -25,19 +25,17 @@ class _HomeScreenState extends State<HomeScreen> {
   showAllData() async {
     List<Map<String, dynamic>> tempList = [];
     var data = await collection.get();
-    data.docs.forEach((element) {
+    for (var element in data.docs) {
       tempList.add(element.data());
-    });
+    }
     setState(() {
       items = tempList;
       isLoaded = true;
     });
-    print(items);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     showAllData();
     super.initState();
   }
@@ -121,18 +119,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w800),
                   ),
                 ),
-                // isLoaded ? Text(items.toString()) : const Text('No data found')
                 isLoaded
-                    ? ListView.builder(
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return Expanded(
-                            child: ListTile(
-                              title: Text(items[index]['cost_description']),
-                            ),
-                          );
-                        })
-                    : const Text('No Daa')
+                    ? Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: items.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              padding: EdgeInsets.all(8.w),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black12,
+                                ),
+                              ),
+                              child: ListTile(
+                                  title: Text(items[index]['cost_description']
+                                      .toString()),
+                                  trailing: SizedBox(
+                                    width: 80.w,
+                                    child: Row(children: [
+                                      Expanded(
+                                          child: IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: Colors.blue,
+                                        ),
+                                      )),
+                                      Expanded(
+                                          child: IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
+                                      ))
+                                    ]),
+                                  )),
+                            );
+                          },
+                        ),
+                      )
+                    : const Text('No Data')
               ],
             ),
           )),
