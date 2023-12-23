@@ -4,6 +4,7 @@ import 'package:expense_diary/controllers/expense_controller.dart';
 import 'package:expense_diary/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Map<String, dynamic>> tempList = [];
     var data = await collection.get();
     for (var element in data.docs) {
+      // print(element.id); // doc id
       tempList.add(element.data());
     }
     setState(() {
@@ -106,19 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Icon(Icons.add),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.w),
             child: Column(
               children: [
-                Center(
-                  child: Text(
-                    'Expense Information',
-                    style: TextStyle(
-                        color: Colors.green,
-                        fontFamily: 'Secondary',
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w800),
-                  ),
-                ),
                 isLoaded
                     ? Expanded(
                         child: ListView.builder(
@@ -135,12 +127,89 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ListTile(
                                   title: Text(items[index]['cost_description']
                                       .toString()),
+                                  subtitle: Text(
+                                      "${DateFormat('yMMMMEEEEd').format(items[index]['updatedAt'].toDate())}"
+                                      " \n ${items[index]['expense_amount']} tk"),
                                   trailing: SizedBox(
                                     width: 80.w,
                                     child: Row(children: [
                                       Expanded(
                                           child: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                SimpleDialog(
+                                              children: [
+                                                Center(
+                                                    child: Text(
+                                                  'Edit Expense',
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Secondary',
+                                                      fontSize: 20.sp,
+                                                      fontWeight:
+                                                          FontWeight.w800),
+                                                )),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: TextField(
+                                                    autofocus: true,
+                                                    decoration:
+                                                        const InputDecoration(),
+                                                    style: const TextStyle(
+                                                        color: Colors.black),
+                                                    controller:
+                                                        TextEditingController(
+                                                            text: items[index][
+                                                                'cost_description']),
+                                                    onChanged: (value) {
+                                                      _costDescriptionController
+                                                          .text = value;
+                                                    },
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: TextField(
+                                                    decoration:
+                                                        const InputDecoration(),
+                                                    style: const TextStyle(
+                                                        color: Colors.black),
+                                                    controller:
+                                                        TextEditingController(
+                                                      text: items[index]
+                                                              ['expense_amount']
+                                                          .toString(),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      _expenseAmountController
+                                                          .text = value;
+                                                    },
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: ElevatedButton(
+                                                      onPressed: () => {
+                                                            updateExpense(
+                                                                _costDescriptionController
+                                                                    .text,
+                                                                _expenseAmountController
+                                                                    .text),
+                                                            Navigator.pop(
+                                                                context),
+                                                          },
+                                                      child:
+                                                          const Text('Edit')),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        },
                                         icon: const Icon(
                                           Icons.edit,
                                           color: Colors.blue,
