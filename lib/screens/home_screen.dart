@@ -19,28 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _expenseAmountController =
       TextEditingController();
 
-  var collection = FirebaseFirestore.instance.collection("expenses");
-  late List<Map<String, dynamic>> items;
-  bool isLoaded = false;
-
-  showAllData() async {
-    List<Map<String, dynamic>> tempList = [];
-    var data = await collection.get();
-    for (var element in data.docs) {
-      // print(element.id); // doc id
-      tempList.add(element.data());
-    }
-    setState(() {
-      items = tempList;
-      isLoaded = true;
-    });
-  }
-
-  @override
-  void initState() {
-    showAllData();
-    super.initState();
-  }
+  var collection = FirebaseFirestore.instance
+      .collection("expenses")
+      .orderBy('updatedAt', descending: true);
 
   @override
   Widget build(BuildContext context) {
@@ -109,30 +90,34 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: Padding(
             padding: EdgeInsets.all(8.w),
-            child: Column(
-              children: [
-                isLoaded
-                    ? Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: items.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              padding: EdgeInsets.all(8.w),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black12,
-                                ),
-                              ),
-                              child: ListTile(
-                                  title: Text(items[index]['cost_description']
-                                      .toString()),
-                                  subtitle: Text(
-                                      "${DateFormat('yMMMMEEEEd').format(items[index]['updatedAt'].toDate())}"
-                                      " \n ${items[index]['expense_amount']} tk"),
-                                  trailing: SizedBox(
-                                    width: 80.w,
-                                    child: Row(children: [
+            child: StreamBuilder(
+              stream: collection.snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  return Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          padding: EdgeInsets.all(8.w),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black12,
+                            ),
+                          ),
+                          child: ListTile(
+                              title: Text(snapshot.data!.docs[index]
+                                  ['cost_description']),
+                              subtitle: Text(
+                                  "${DateFormat('yMMMMEEEEd').format(snapshot.data!.docs[index]['updatedAt'].toDate())}"
+                                  "\n ${snapshot.data!.docs[index]['expense_amount']} tk"
+                                  // "\n ${snapshot.data!.docs[index].id}",
+                                  ),
+                              trailing: SizedBox(
+                                  width: 80.w,
+                                  child: Row(
+                                    children: [
                                       Expanded(
                                           child: IconButton(
                                         onPressed: () {
@@ -162,7 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         color: Colors.black),
                                                     controller:
                                                         TextEditingController(
-                                                            text: items[index][
+                                                            text: snapshot.data!
+                                                                    .docs[index]
+                                                                [
                                                                 'cost_description']),
                                                     onChanged: (value) {
                                                       _costDescriptionController
@@ -174,13 +161,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   padding: const EdgeInsets.all(
                                                       10.0),
                                                   child: TextField(
+                                                    autofocus: true,
                                                     decoration:
                                                         const InputDecoration(),
                                                     style: const TextStyle(
                                                         color: Colors.black),
                                                     controller:
                                                         TextEditingController(
-                                                      text: items[index]
+                                                      text: snapshot
+                                                          .data!
+                                                          .docs[index]
                                                               ['expense_amount']
                                                           .toString(),
                                                     ),
@@ -199,13 +189,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 _costDescriptionController
                                                                     .text,
                                                                 _expenseAmountController
-                                                                    .text),
+                                                                    .text,
+                                                                snapshot.data!
+                                                                            .docs[
+                                                                        index][
+                                                                    'createdAt'],
+                                                                snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                    .id
+                                                                    .toString()),
                                                             Navigator.pop(
                                                                 context),
                                                           },
                                                       child:
                                                           const Text('Edit')),
-                                                )
+                                                ),
                                               ],
                                             ),
                                           );
@@ -216,21 +215,65 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       )),
                                       Expanded(
-                                          child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.delete,
-                                          color: Colors.red,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title:
+                                                        const Text("Confirm"),
+                                                    content:
+                                                        const SingleChildScrollView(
+                                                      child: ListBody(
+                                                        children: <Widget>[
+                                                          Text("Are you sure?")
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      ElevatedButton(
+                                                        child: const Text("No"),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                      ElevatedButton(
+                                                        child:
+                                                            const Text("Yes"),
+                                                        onPressed: () {
+                                                          deleteExpense(snapshot
+                                                              .data!
+                                                              .docs[index]
+                                                              .id
+                                                              .toString());
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
                                         ),
-                                      ))
-                                    ]),
-                                  )),
-                            );
-                          },
-                        ),
-                      )
-                    : const Text('No Data')
-              ],
+                                      ),
+                                    ],
+                                  ))),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  const Text('data not found');
+                }
+                return const CircularProgressIndicator();
+              },
             ),
           )),
     );
