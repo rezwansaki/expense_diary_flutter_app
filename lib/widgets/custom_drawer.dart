@@ -58,7 +58,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         color: Colors.white),
                   ),
                   SizedBox(
-                    height: 52.h,
+                    height: 32.h,
                   ),
                   Text(
                     userName,

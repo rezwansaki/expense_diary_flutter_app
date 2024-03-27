@@ -1,9 +1,13 @@
 # Expense Diary - Flutter App
 
 ![Alt text](screenshot_1.png "Expense Diary - Flutter App")
+![Alt text](screenshot_2.png "Expense Diary - Flutter App")
+![Alt text](screenshot_3.png "Expense Diary - Flutter App")
+![Alt text](screenshot_4.png "Expense Diary - Flutter App")
+![Alt text](screenshot_5.png "Expense Diary - Flutter App")
 
 This is a practice project. A Flutter-Firebase project. 
-Database: Firebase.
+Database and Authentication: Firebase.
 
 ## Image Credit:
 1. https://www.freepik.com/ </br>
@@ -36,8 +40,10 @@ Note: Internet required.
   <li>1. flutter_screenutil: ^5.9.0 - for responsie app design.</li>
   <li>2. shared_preferences: ^2.2.2 - for storing logn token in device.</li>  
   <li>3. firebase_core: ^2.24.2 - for firebase</li>  
-  <li>4. firebase_auth: ^4.15.2 - for firebase authentication</li>  
-  <li>5. cloud_firestore: ^4.13.5 - for firebase cloud firestore</li>  
+  <li>4. firebase_auth: ^4.18.0 - for firebase authentication</li>  
+  <li>5. cloud_firestore: ^4.15.10 - for firebase cloud firestore</li>  
+  <li>6. intl: ^0.19.0 # for date and time</li>  
+  <li>7. get: ^4.6.6 - GetX for State Management and other</li>  
 </ul>
 
 ### Requires Android:

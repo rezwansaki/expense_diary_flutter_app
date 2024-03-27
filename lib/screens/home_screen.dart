@@ -99,6 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
+                        // final FirebaseAuth auth = FirebaseAuth.instance;
+                        // final User? user = auth.currentUser;
+                        // final uid = user?.uid;
+                        // print(snapshot.data!.docs[index]['uid']);
+                        // if (snapshot.data!.docs[index]['uid'] == uid) {
+                        // logged in user can access only his or her data
                         return Container(
                           padding: EdgeInsets.all(8.w),
                           decoration: BoxDecoration(
@@ -266,6 +272,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ],
                                   ))),
                         );
+                        // } else {
+                        //   print('No data found!');
+                        // }
                       },
                     ),
                   );
