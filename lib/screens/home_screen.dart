@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/controllers/expense_controller.dart';
 import 'package:expense_diary/widgets/custom_drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -19,9 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _expenseAmountController =
       TextEditingController();
 
+  // get specific data from expense table of any specific logged in user
   var collection = FirebaseFirestore.instance
       .collection("expenses")
-      .orderBy('updatedAt', descending: true);
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid);
+  // .orderBy('updatedAt', descending: true);
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         // final FirebaseAuth auth = FirebaseAuth.instance;
                         // final User? user = auth.currentUser;
                         // final uid = user?.uid;
-                        // print(snapshot.data!.docs[index]['uid']);
                         // if (snapshot.data!.docs[index]['uid'] == uid) {
                         // logged in user can access only his or her data
                         return Container(
