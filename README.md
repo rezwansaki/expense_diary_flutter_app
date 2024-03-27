@@ -74,22 +74,16 @@ Apk version: 1.0.0+1 (12-Dec-2023) <br />
 
 ### Last Update:
 
-23-Dec-2023
+27-Mar-2024
 
 ### Developed by:
 
 Md. Rezwan Saki Alin
 https://www.alinsworld.com/
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-
 </p>
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 Flutter is an open source framework by Google.
 
