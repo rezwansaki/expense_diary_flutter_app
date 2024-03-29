@@ -115,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: GestureDetector(
                             onTap: () {
+                              // navigate to DetailsInfo page when click or tap any list item
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -123,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     singleData: snapshot.data!.docs[index],
                                   ),
                                 ),
-                              );
+                              ); // end of navigator.push
                             },
                             child: ListTile(
                                 title: Text(snapshot.data!.docs[index]
@@ -216,6 +217,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   snapshot.data!
                                                                               .docs[
                                                                           index]
+                                                                      ['mark'],
+                                                                  snapshot.data!
+                                                                              .docs[
+                                                                          index]
                                                                       [
                                                                       'createdAt'],
                                                                   snapshot
@@ -293,6 +298,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                         ),
+                                        Checkbox(
+                                            value: snapshot.data!.docs[index]
+                                                ['mark'],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                FirebaseFirestore.instance
+                                                    .collection('expenses')
+                                                    .doc(snapshot
+                                                        .data!.docs[index].id)
+                                                    .update({
+                                                  'mark': value,
+                                                  'updatedAt': DateTime.now(),
+                                                });
+                                              });
+                                            })
                                       ],
                                     ))),
                           ),

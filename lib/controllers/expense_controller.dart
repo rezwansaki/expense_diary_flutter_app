@@ -16,6 +16,7 @@ createExpense(String costDescription, String expenseAmount) async {
       'cost_description': costDescription,
       'expense_amount': num.parse(expenseAmount),
       'uid': userId,
+      'mark': false,
       'createdAt': DateTime.now(),
       'updatedAt': DateTime.now(),
     }).then((value) {
@@ -28,8 +29,8 @@ createExpense(String costDescription, String expenseAmount) async {
 }
 
 // update a single expense from expenses collection
-updateExpense(String costDescription, String expenseAmount, Timestamp createdAt,
-    String docId) async {
+updateExpense(String costDescription, String expenseAmount, bool mark,
+    Timestamp createdAt, String docId) async {
   try {
     // store user id as token in the device
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -40,6 +41,7 @@ updateExpense(String costDescription, String expenseAmount, Timestamp createdAt,
       'cost_description': costDescription,
       'expense_amount': num.parse(expenseAmount),
       'uid': userId,
+      'mark': false,
       'createdAt': createdAt.toDate(),
       'updatedAt': DateTime.now(),
     });
