@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_diary/constant/variables.dart';
 import 'package:expense_diary/controllers/expense_controller.dart';
+import 'package:expense_diary/screens/details_info.dart';
 import 'package:expense_diary/widgets/custom_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -104,10 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int index) {
-                        // final FirebaseAuth auth = FirebaseAuth.instance;
-                        // final User? user = auth.currentUser;
-                        // final uid = user?.uid;
-                        // if (snapshot.data!.docs[index]['uid'] == uid) {
                         // logged in user can access only his or her data
                         return Container(
                           padding: EdgeInsets.all(8.w),
@@ -116,169 +113,190 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.black12,
                             ),
                           ),
-                          child: ListTile(
-                              title: Text(snapshot.data!.docs[index]
-                                  ['cost_description']),
-                              subtitle: Text(
-                                  "${DateFormat('yMMMMEEEEd').format(snapshot.data!.docs[index]['updatedAt'].toDate())}"
-                                  "\n ${snapshot.data!.docs[index]['expense_amount']} tk"
-                                  // "\n ${snapshot.data!.docs[index].id}",
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailsInfo(
+                                    // return an object of a single data
+                                    singleData: snapshot.data!.docs[index],
                                   ),
-                              trailing: SizedBox(
-                                  width: 80.w,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) =>
-                                                SimpleDialog(
-                                              children: [
-                                                Center(
-                                                    child: Text(
-                                                  'Edit Expense',
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontFamily: 'Secondary',
-                                                      fontSize: 20.sp,
-                                                      fontWeight:
-                                                          FontWeight.w800),
-                                                )),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: TextField(
-                                                    autofocus: true,
-                                                    decoration:
-                                                        const InputDecoration(),
-                                                    style: const TextStyle(
-                                                        color: Colors.black),
-                                                    controller:
-                                                        TextEditingController(
-                                                            text: snapshot.data!
-                                                                    .docs[index]
-                                                                [
-                                                                'cost_description']),
-                                                    onChanged: (value) {
-                                                      _costDescriptionController
-                                                          .text = value;
-                                                    },
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: TextField(
-                                                    autofocus: true,
-                                                    decoration:
-                                                        const InputDecoration(),
-                                                    style: const TextStyle(
-                                                        color: Colors.black),
-                                                    controller:
-                                                        TextEditingController(
-                                                      text: snapshot
-                                                          .data!
-                                                          .docs[index]
-                                                              ['expense_amount']
-                                                          .toString(),
+                                ),
+                              );
+                            },
+                            child: ListTile(
+                                title: Text(snapshot.data!.docs[index]
+                                    ['cost_description']),
+                                subtitle: Text(
+                                    "${DateFormat('yMMMMEEEEd').format(snapshot.data!.docs[index]['updatedAt'].toDate())}"
+                                    "\n ${snapshot.data!.docs[index]['expense_amount']} tk"
+                                    // "\n ${snapshot.data!.docs[index].id}",
+                                    ),
+                                trailing: SizedBox(
+                                    width: 80.w,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            child: IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  SimpleDialog(
+                                                children: [
+                                                  Center(
+                                                      child: Text(
+                                                    'Edit Expense',
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontFamily: 'Secondary',
+                                                        fontSize: 20.sp,
+                                                        fontWeight:
+                                                            FontWeight.w800),
+                                                  )),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: TextField(
+                                                      autofocus: true,
+                                                      decoration:
+                                                          const InputDecoration(),
+                                                      style: const TextStyle(
+                                                          color: Colors.black),
+                                                      controller:
+                                                          TextEditingController(
+                                                              text: snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index][
+                                                                  'cost_description']),
+                                                      onChanged: (value) {
+                                                        _costDescriptionController
+                                                            .text = value;
+                                                      },
                                                     ),
-                                                    onChanged: (value) {
-                                                      _expenseAmountController
-                                                          .text = value;
-                                                    },
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      10.0),
-                                                  child: ElevatedButton(
-                                                      onPressed: () => {
-                                                            updateExpense(
-                                                                _costDescriptionController
-                                                                    .text,
-                                                                _expenseAmountController
-                                                                    .text,
-                                                                snapshot.data!
-                                                                            .docs[
-                                                                        index][
-                                                                    'createdAt'],
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: TextField(
+                                                      autofocus: true,
+                                                      decoration:
+                                                          const InputDecoration(),
+                                                      style: const TextStyle(
+                                                          color: Colors.black),
+                                                      controller:
+                                                          TextEditingController(
+                                                        text: snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'expense_amount']
+                                                            .toString(),
+                                                      ),
+                                                      onChanged: (value) {
+                                                        _expenseAmountController
+                                                            .text = value;
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10.0),
+                                                    child: ElevatedButton(
+                                                        onPressed: () => {
+                                                              updateExpense(
+                                                                  _costDescriptionController
+                                                                      .text,
+                                                                  _expenseAmountController
+                                                                      .text,
+                                                                  snapshot.data!
+                                                                              .docs[
+                                                                          index]
+                                                                      [
+                                                                      'createdAt'],
+                                                                  snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                      .id
+                                                                      .toString()),
+                                                              Navigator.pop(
+                                                                  context),
+                                                            },
+                                                        child:
+                                                            const Text('Edit')),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.edit,
+                                            color: Colors.blue,
+                                          ),
+                                        )),
+                                        Expanded(
+                                          child: IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          const Text("Confirm"),
+                                                      content:
+                                                          const SingleChildScrollView(
+                                                        child: ListBody(
+                                                          children: <Widget>[
+                                                            Text(
+                                                                "Are you sure?")
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      actions: <Widget>[
+                                                        ElevatedButton(
+                                                          child:
+                                                              const Text("No"),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                        ),
+                                                        ElevatedButton(
+                                                          child:
+                                                              const Text("Yes"),
+                                                          onPressed: () {
+                                                            deleteExpense(
                                                                 snapshot
                                                                     .data!
                                                                     .docs[index]
                                                                     .id
-                                                                    .toString()),
-                                                            Navigator.pop(
-                                                                context),
+                                                                    .toString());
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
                                                           },
-                                                      child:
-                                                          const Text('Edit')),
-                                                ),
-                                              ],
+                                                        ),
+                                                      ],
+                                                    );
+                                                  });
+                                            },
+                                            icon: const Icon(
+                                              Icons.delete,
+                                              color: Colors.red,
                                             ),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.blue,
-                                        ),
-                                      )),
-                                      Expanded(
-                                        child: IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title:
-                                                        const Text("Confirm"),
-                                                    content:
-                                                        const SingleChildScrollView(
-                                                      child: ListBody(
-                                                        children: <Widget>[
-                                                          Text("Are you sure?")
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    actions: <Widget>[
-                                                      ElevatedButton(
-                                                        child: const Text("No"),
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                      ),
-                                                      ElevatedButton(
-                                                        child:
-                                                            const Text("Yes"),
-                                                        onPressed: () {
-                                                          deleteExpense(snapshot
-                                                              .data!
-                                                              .docs[index]
-                                                              .id
-                                                              .toString());
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
-                                          },
-                                          icon: const Icon(
-                                            Icons.delete,
-                                            color: Colors.red,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ))),
+                                      ],
+                                    ))),
+                          ),
                         );
-                        // } else {
-                        //   print('No data found!');
-                        // }
                       },
                     ),
                   );
